@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>3 Cups Game</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="style/style.min.css">
+        <script src="scripts/script.js" defer></script>
+    </head>
+    <body>
+        <nav>
+            <div class="df--lvl__background">
+                <h1>3 Cups Game</h1>
+                <div class="df--lvl__container">
+                    <p>Choose Difficulty Level</p>
+                    <form id="df--lvl__adjust">
+                        <div>
+                            <input type="radio" id="easy" name="df--lvl" value="2000">
+                            <label for="easy">Easy</label>
+                        </div>
+                        <div class="df--lvl__line"></div>
+                        <div>
+                            <input type="radio" id="normal" name="df--lvl" value="2900">
+                            <label for="normal">Normal</label>
+                        </div>
+                        <div class="df--lvl__line"></div>
+                        <div>
+                            <input type="radio" id="hard" name="df--lvl" value="3400">
+                            <label for="hard">Hard</label>
+                        </div>
+                        <div class="df--lvl__line"></div>
+                        <div>
+                            <input type="radio" id="lucky strike" name="df--lvl" value="4000">
+                            <label for="lucky strike">Fluke</label>
+                        </div>
+                    </form>
+                    <button id="df--lvl__select--btn">Let's Play!</button>
+                    <p id="df--lvl__select"></p>
+                </div>
+            </div>
+        </nav>
+        <main>
+            <div id="counter">
+                <p id="wins--count"></p>
+                <p id="score"></p>
+            </div>
+            <button id="change--df--lvl">Change Difficulty Level</button>
+            <div class="container">
+                <div id="click--blocker"></div>
+                <div id="cupOne" class="item">
+                    <div class="cup--shape">
+                        <div class="cup--shape__left"></div>
+                        <div class="cup--shape__right"></div>
+                        <div class="cup--shape__top"></div>
+                        <div class="cup--shape__bottom"></div>
+                    </div>
+                </div>
+                <div id="cupTwo" class="item">
+                    <div class="cup--shape">
+                        <div class="cup--shape__left"></div>
+                        <div class="cup--shape__right"></div>
+                        <div class="cup--shape__top"></div>
+                        <div class="cup--shape__bottom"></div>
+                    </div>
+                </div>
+                <div id="cupThree" class="item">
+                    <div class="cup--shape">
+                        <div class="cup--shape__left"></div>
+                        <div class="cup--shape__right"></div>
+                        <div class="cup--shape__top"></div>
+                        <div class="cup--shape__bottom"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="operators">
+                <p id="notification"></p>
+                <div class="button--box">
+                    <button id="start--game">Start Game</button>
+                    <button id="end--game">Play Again</button>
+                </div>
+            </div>
+        </main>
+    </body>
+</html>
