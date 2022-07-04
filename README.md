@@ -12,4 +12,4 @@ In future i would like to improve structure of the code, add local storage or co
 
 Used technologies: HTML, SASS, JavaScript.
 
-Have a fun!
+## Have a fun!
