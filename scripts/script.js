@@ -7,7 +7,7 @@ const clickBlocker = document.querySelector('#click--blocker')
 const notification = document.querySelector('#notification')
 const winCounter = document.querySelector('#wins--count')
 const scoreCounter = document.querySelector('#score')
-const dfLvlHandler = document.querySelector('#change--df--lvl')
+const difficuiltyLvlHandler = document.querySelector('#change--df--lvl')
 const h1 = document.querySelector('h1')
 
 const cupOne = document.querySelector('#cupOne')
@@ -22,26 +22,25 @@ const cupOneAnims = ['animation--one', 'animation--four', 'animation--seven']
 const cupTwoAnims = ['animation--two', 'animation--five', 'animation--eight']
 const cupThreeAnims = ['animation--three', 'animation--six', 'animation--nine']
 
-const assignedCupValues = [0,1,2]
-let handleWithClickBlocker = [0]
-
-const ball = document.createElement('div') // why if in global scope it reassigns ball to cup instead of creating another ball????
+const ball = document.createElement('div') 
 ball.classList.add('ball')
 
-endGameBtn.style.display = 'none'
-dfLvlHandler.style.display = 'none'
+const assignedCupValues = [0,1,2]
+let handleWithClickBlocker = [0]
+let scoreCountArray = [0]
 
 let setAnimationSpeed = 0
+
+let assignAnimationSpeed = 0
 console.log(setAnimationSpeed)
 
 let winsCountInit = 0
 countValue = 1
 
-let scoreCountArray = [0]
-
-let assignAnimationSpeed = 0
-
 let CupsRandomNumberVar = null
+
+endGameBtn.style.display = 'none'
+difficuiltyLvlHandler.style.display = 'none'
 
 
 const reduceArrayFunc = (total, num) => {
@@ -121,16 +120,16 @@ for (let i = 0; i < shape.length; i++) {
             clickBlocker.style.display = 'block'
             endGameBtn.style.display = 'block'
             notification.textContent ='You win!'
-            dfLvlHandler.style.display = 'block'
-            dfLvlHandler.disabled = false
+            difficuiltyLvlHandler.style.display = 'block'
+            difficuiltyLvlHandler.disabled = false
             console.log('score conut array: ' + scoreCountArray)
             winsCount()
          } else if (assignedCupValues[i] === CupsRandomNumberVar) {
             clickBlocker.style.display = 'block'
             endGameBtn.style.display = 'block'
             notification.textContent ='You win!'
-            dfLvlHandler.style.display = 'block'
-            dfLvlHandler.disabled = false
+            difficuiltyLvlHandler.style.display = 'block'
+            difficuiltyLvlHandler.disabled = false
             if (assignAnimationSpeed === '1s') {
               scoreCountArray.push(20)
             } else if (assignAnimationSpeed === '1.6s') {
@@ -145,15 +144,16 @@ for (let i = 0; i < shape.length; i++) {
             clickBlocker.style.display = 'block'
             endGameBtn.style.display = 'block'
             notification.textContent = 'You lost'
-            dfLvlHandler.style.display = 'block'
-            dfLvlHandler.disabled = false
+            difficuiltyLvlHandler.style.display = 'block'
+            difficuiltyLvlHandler.disabled = false
             if (assignAnimationSpeed === '1s') {
                 scoreCountArray.push(-20)
               } else if (assignAnimationSpeed === '1.6s') {
                   scoreCountArray.push(-12)
               } else {
                   scoreCountArray.push(-10)
-              }            scoreCountFunc()
+              }            
+              scoreCountFunc()
             console.log('score conut array: ' + scoreCountArray)
         } else {
             notification.textContent = 'not here..'
@@ -214,7 +214,7 @@ const endGameFc = () => {
     // endGameBtn.style.display = 'none'
     ball.classList.remove('expandBall')
     ball.classList.add('shrinkBall')
-    dfLvlHandler.disabled = true
+    difficuiltyLvlHandler.disabled = true
     moveCupsUpFc()
     setTimeout(() => {endGameBtn.style.display = 'none'}, 100)
     setTimeout(clearAnimations, 500)
@@ -227,4 +227,4 @@ const endGameFc = () => {
 dfLvlAdjustBtn.addEventListener('click', setAnimationSpeedFc)
 startGameBtn.addEventListener('click', startGameFc)
 endGameBtn.addEventListener('click', endGameFc)
-dfLvlHandler.addEventListener('click', navHandler)
+difficuiltyLvlHandler.addEventListener('click', navHandler)
