@@ -1,5 +1,5 @@
 const nav = document.querySelector('nav')
-const dfLvlAdjustBtn = document.querySelector('#df--lvl__select--btn')
+const difficuiltyLvlAdjustButton = document.querySelector('#df--lvl__select--btn')
 const dfLvlNote = document.getElementById('df--lvl__select')
 const startGameBtn = document.querySelector('#start--game')
 const endGameBtn = document.querySelector('#end--game')
@@ -14,7 +14,7 @@ const cupOne = document.querySelector('#cupOne')
 const cupTwo = document.querySelector('#cupTwo')
 const cupThree = document.querySelector('#cupThree')
 
-const dfLvlInputs = document.querySelectorAll('input[name="df--lvl"]')
+const difficuiltyLvlInputs = document.querySelectorAll('input[name="df--lvl"]')
 const cups = document.querySelectorAll('.item')
 const shape = document.querySelectorAll('.cup--shape')
 
@@ -32,7 +32,7 @@ let scoreCountArray = [0]
 let setAnimationSpeed = 0
 
 let assignAnimationSpeed = 0
-console.log(setAnimationSpeed)
+console.log('set animation speed: ' + setAnimationSpeed)
 
 let winsCountInit = 0
 countValue = 1
@@ -61,11 +61,7 @@ const scoreCountFunc = () => {
     scoreCounter.textContent = `Score: ${scoreCountArray.reduce(reduceArrayFunc)}`
 }
 
-let AnimRandomNumberFc = () => {
-    return Math.floor(Math.random()*3)
-}
-
-let CupsRandomNumberFc = () => {
+let randomNumberForAnimAndCups = () => {
     return Math.floor(Math.random()*3)
 }
 
@@ -77,14 +73,12 @@ const navHandler = () => {
 }
 
 const assignAnimationSpeedFc = () => {
-    assignAnimationSpeed = 0
     assignAnimationSpeed = ((5000 - setAnimationSpeed)/1000) + 's'
     console.log(assignAnimationSpeed)
 }
 
 const setAnimationSpeedFc = () => {
-    setAnimationSpeed = null
-    for (let input of dfLvlInputs) {
+    for (let input of difficuiltyLvlInputs) {
         if (input.checked) {
             setAnimationSpeed = input.value
             nav.style.opacity = '0'
@@ -114,6 +108,7 @@ for (let i = 0; i < shape.length; i++) {
     shape[i].addEventListener('click', () => {
         shape[i].classList.remove('moveCupsDown')
         shape[i].classList.add('moveCupsUp')
+        shape[i].disabled = true // tutaj zmiana!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         console.log(shape[i])
         handleWithClickBlocker.push(1)
          if (assignedCupValues[i] === CupsRandomNumberVar && (handleWithClickBlocker.reduce(reduceArrayFunc) === 2)) {
@@ -173,13 +168,14 @@ const moveCupsUpFc = () => {
     for (let shp of shape) {
         shp.classList.remove('moveCupsDown')
         shp.classList.add('moveCupsUp')
+        shp.disabled = false
         console.log(shp)
     }
 }
 
 const startGameFc = () => {
     handleWithClickBlocker.splice(1, handleWithClickBlocker.length)
-    AnimRandomNumberVar = AnimRandomNumberFc()
+    let AnimRandomNumberVar = randomNumberForAnimAndCups()
     const runAnimation = () => {
         cupOne.classList.add(cupOneAnims[AnimRandomNumberVar])
         cupTwo.classList.add(cupTwoAnims[AnimRandomNumberVar])
@@ -195,7 +191,7 @@ const startGameFc = () => {
     console.log(AnimRandomNumberVar)
     setTimeout(() => {clickBlocker.style.display = 'none'; notification.textContent = 'Select cup...'}, 7000 - setAnimationSpeed )
     setTimeout(() => {startGameBtn.style.display = 'none'}, 300)
-    CupsRandomNumberVar = CupsRandomNumberFc()
+    CupsRandomNumberVar = randomNumberForAnimAndCups()
     setTimeout(moveCupsDownFc, 1000)
     setTimeout(runAnimation, 1500)
     assignBallToCup()
@@ -224,7 +220,7 @@ const endGameFc = () => {
 }
 
 
-dfLvlAdjustBtn.addEventListener('click', setAnimationSpeedFc)
+difficuiltyLvlAdjustButton.addEventListener('click', setAnimationSpeedFc)
 startGameBtn.addEventListener('click', startGameFc)
 endGameBtn.addEventListener('click', endGameFc)
 difficuiltyLvlHandler.addEventListener('click', navHandler)

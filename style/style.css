@@ -156,6 +156,8 @@ main .cup--shape {
   display: flex;
   width: 8rem;
   height: 10rem;
+  border: none;
+  background-color: inherit;
   z-index: 20;
 }
 
