@@ -17,6 +17,9 @@ $shadow-color: rgba(176, 174, 174, 0.7);
 $button-color: #ffaa00;
 $button-border-color: rgba(145, 42, 42, 0.4);
 $change-df-lvl-color: rgba(74, 0, 108, 0.7);
+$HSannouncemet-bg-color: rgb(121, 222, 255);
+$HSannouncemet-font-color: rgb(0, 0, 191);
+$dfLevelBtnShadow: rgb(54, 5, 54);
 
 nav {
     display: flex;
@@ -51,10 +54,17 @@ nav {
         justify-content: space-evenly;
         h1 {
             font-size: 5rem;
-            margin: 2rem;
             color: white;
             text-shadow: 2px 2px 2px black;
             animation: rotation 1s forwards;
+        }
+        #high--score {
+            font-size: 1.5rem;
+            opacity: 0;
+            animation: rotation 1s  forwards;
+            animation-delay: 0.5s;
+            color: #ffffff;
+            text-shadow: 2px 2px 3px black;
         }
         .df--lvl__container {
             display: flex;
@@ -88,11 +98,11 @@ nav {
                 background-color: $change-df-lvl-color;
                 padding: 0.5rem;
                 border-radius: 0.3rem;
-                color: white;
-                box-shadow: inset 0 0 0.4rem rgb(54, 5, 54);
+                color: $border-color;
+                box-shadow: inset 0 0 0.4rem $dfLevelBtnShadow;
             }
             #df--lvl__select--btn:hover {
-                box-shadow: inset 0 0 0.4rem rgb(219, 219, 219);
+                box-shadow: inset 0 0 0.4rem $border-color;
                 transition: 0.2s;
             }
         }
@@ -265,6 +275,18 @@ main {
         top: 1rem;
         right: 1rem;
     }
+    #high--score__announcement {
+        position: absolute;
+        padding: 0.5rem 1.2rem 0.5rem 1rem;
+        top: 0;
+        left: 0;
+        border-radius: 0 0 1rem 0;
+        background: $HSannouncemet-bg-color;        ;
+        p {
+            font-size: 1.2rem;
+            color: $HSannouncemet-font-color;
+        }
+    }
 
     #cupOne {
         left: 0;
@@ -306,6 +328,24 @@ main {
             100% {
                 width: 0rem;
                 height: 0rem;
+            } 
+        }
+    }
+
+    .hsAnim {
+        animation: HSanim 6s forwards;
+        @keyframes HSanim {
+            0% {
+                left: -100%;
+            } 
+            5% {
+                left:0
+            }            
+            95% {
+                left:0
+            }
+            100% {
+                left: -100%;
             } 
         }
     }
@@ -577,13 +617,13 @@ main {
         font-size: 24px;
     }
 }
-@media screen and (min-width: 1264px) {
-    * {
-        font-size: 26px;
-    }
-}
-@media screen and (min-width: 1904px) {
-    * {
-        font-size: 28px;
-    }
-}
+// @media screen and (min-width: 1264px) {
+//     * {
+//         font-size: 26px;
+//     }
+// }
+// @media screen and (min-width: 1904px) {
+//     * {
+//         font-size: 28px;
+//     }
+// }

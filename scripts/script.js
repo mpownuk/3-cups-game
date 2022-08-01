@@ -1,6 +1,5 @@
 const nav = document.querySelector('nav')
-const difficuiltyLvlAdjustButton = document.querySelector('#df--lvl__select--btn')
-const dfLvlNote = document.getElementById('df--lvl__select')
+const dfLvlNote = document.querySelector('#df--lvl__select')
 const startGameBtn = document.querySelector('#start--game')
 const endGameBtn = document.querySelector('#end--game')
 const clickBlocker = document.querySelector('#click--blocker')
@@ -8,7 +7,10 @@ const notification = document.querySelector('#notification')
 const winCounter = document.querySelector('#wins--count')
 const scoreCounter = document.querySelector('#score')
 const difficuiltyLvlHandler = document.querySelector('#change--df--lvl')
+const difficuiltyLvlAdjustButton = document.querySelector('#df--lvl__select--btn')
 const h1 = document.querySelector('h1')
+const highScore = document.querySelector('#high--score')
+const newHighScoreAnnouncement = document.querySelector('#high--score__announcement')
 
 const cupOne = document.querySelector('#cupOne')
 const cupTwo = document.querySelector('#cupTwo')
@@ -43,6 +45,38 @@ endGameBtn.style.display = 'none'
 difficuiltyLvlHandler.style.display = 'none'
 
 
+newHighScoreAnnouncement.style.display = 'none'
+
+highScore.style.display = 'none'
+
+let highScoreValue = localStorage.getItem('high score')
+
+if ( highScoreValue === null) {
+    localStorage.setItem('high score', 0)
+} else if (highScoreValue !== null && highScoreValue > 0){
+    highScore.style.display = 'block'
+}
+
+highScore.innerHTML = 'HIGH SCORE: ' + highScoreValue
+
+const highScoreHandler = () => {
+    let reducedHighScore = scoreCountArray.reduce(reduceArrayFunc)
+    if (highScoreValue < reducedHighScore) {
+        localStorage.setItem('high score', reducedHighScore)
+        highScoreValue = reducedHighScore
+        highScore.innerHTML = 'HIGH SCORE: ' + highScoreValue
+        highScore.style.display = 'block'
+        if (newHighScoreAnnouncement.style.display = 'none') {
+            newHighScoreAnnouncement.style.display = 'block'
+       
+                newHighScoreAnnouncement.classList.add('hsAnim')
+         
+        }
+    }
+}
+
+
+
 const reduceArrayFunc = (total, num) => {
     return total + num
 }
@@ -50,6 +84,7 @@ const reduceArrayFunc = (total, num) => {
 const winsCount = () => {
     winsCountInit += countValue
     winCounter.innerHTML = 'winnings: ' + winsCountInit
+    highScoreHandler()
 }
 
 const scoreCountFunc = () => {
@@ -108,7 +143,7 @@ for (let i = 0; i < shape.length; i++) {
     shape[i].addEventListener('click', () => {
         shape[i].classList.remove('moveCupsDown')
         shape[i].classList.add('moveCupsUp')
-        shape[i].disabled = true // tutaj zmiana!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        shape[i].disabled = true
         console.log(shape[i])
         handleWithClickBlocker.push(1)
          if (assignedCupValues[i] === CupsRandomNumberVar && (handleWithClickBlocker.reduce(reduceArrayFunc) === 2)) {
