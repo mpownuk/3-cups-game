@@ -8,7 +8,7 @@ const winCounter = document.querySelector('#wins--count')
 const scoreCounter = document.querySelector('#score')
 const difficuiltyLvlHandler = document.querySelector('#change--df--lvl')
 const difficuiltyLvlAdjustButton = document.querySelector('#df--lvl__select--btn')
-const h1 = document.querySelector('h1')
+const header1 = document.querySelector('h1')
 const highScore = document.querySelector('#high--score')
 const newHighScoreAnnouncement = document.querySelector('#high--score__announcement')
 
@@ -28,16 +28,15 @@ const ball = document.createElement('div')
 ball.classList.add('ball')
 
 const assignedCupValues = [0,1,2]
-let handleWithClickBlocker = [0]
-let scoreCountArray = [0]
+const handleWithClickBlocker = [0]
+const scoreCountArray = [0]
 
 let setAnimationSpeed = 0
 
 let assignAnimationSpeed = 0
-console.log('set animation speed: ' + setAnimationSpeed)
 
-let winsCountInit = 0
-countValue = 1
+let winsCountInit = 0 
+let countValue = 1
 
 let CupsRandomNumberVar = null
 
@@ -55,9 +54,9 @@ if ( highScoreValue === null) {
     localStorage.setItem('high score', 0)
 } else if (highScoreValue !== null && highScoreValue > 0){
     highScore.style.display = 'block'
+    highScore.innerHTML = 'HIGH SCORE: ' + highScoreValue
 }
 
-highScore.innerHTML = 'HIGH SCORE: ' + highScoreValue
 
 const highScoreHandler = () => {
     let reducedHighScore = scoreCountArray.reduce(reduceArrayFunc)
@@ -103,14 +102,9 @@ let randomNumberForAnimAndCups = () => {
 const navHandler = () => {
     nav.style.display ='block'
     nav.style.opacity = '1'
-    h1.style.display = 'none'
-    console.log(setAnimationSpeed)
+    header1.style.display = 'none'
 }
 
-const assignAnimationSpeedFc = () => {
-    assignAnimationSpeed = ((5000 - setAnimationSpeed)/1000) + 's'
-    console.log(assignAnimationSpeed)
-}
 
 const setAnimationSpeedFc = () => {
     for (let input of difficuiltyLvlInputs) {
@@ -121,10 +115,10 @@ const setAnimationSpeedFc = () => {
             setTimeout(() => {
                 nav.style.display ='none'
             }, 300);
-            console.log(setAnimationSpeed)
+            console.log(setAnimationSpeed, assignAnimationSpeed)
         }
     }
-    assignAnimationSpeedFc()
+    assignAnimationSpeed = setAnimationSpeed
 }
 
 const assignBallToCup = () => {
@@ -134,7 +128,6 @@ const assignBallToCup = () => {
             cups[i].append(ball)
             ball.classList.remove('shrinkBall')
             ball.classList.add('expandBall')
-            console.log('ball in cup: ' + [i+1])
         }
     }
 }
@@ -144,7 +137,6 @@ for (let i = 0; i < shape.length; i++) {
         shape[i].classList.remove('moveCupsDown')
         shape[i].classList.add('moveCupsUp')
         shape[i].disabled = true
-        console.log(shape[i])
         handleWithClickBlocker.push(1)
          if (assignedCupValues[i] === CupsRandomNumberVar && (handleWithClickBlocker.reduce(reduceArrayFunc) === 2)) {
             clickBlocker.style.display = 'block'
@@ -184,11 +176,9 @@ for (let i = 0; i < shape.length; i++) {
                   scoreCountArray.push(-10)
               }            
               scoreCountFunc()
-            console.log('score conut array: ' + scoreCountArray)
         } else {
             notification.textContent = 'not here..'
         }
-    console.log(handleWithClickBlocker)
     })
 }
 
@@ -196,7 +186,6 @@ const moveCupsDownFc = () => {
     for (let shp of shape) {
         shp.classList.remove('moveCupsUp')
         shp.classList.add('moveCupsDown')
-        console.log(shp)
     }
 }
 const moveCupsUpFc = () => {
@@ -204,7 +193,6 @@ const moveCupsUpFc = () => {
         shp.classList.remove('moveCupsDown')
         shp.classList.add('moveCupsUp')
         shp.disabled = false
-        console.log(shp)
     }
 }
 
@@ -215,21 +203,21 @@ const startGameFc = () => {
         cupOne.classList.add(cupOneAnims[AnimRandomNumberVar])
         cupTwo.classList.add(cupTwoAnims[AnimRandomNumberVar])
         cupThree.classList.add(cupThreeAnims[AnimRandomNumberVar])
-        cupOne.style.animationDuration = assignAnimationSpeed
-        cupTwo.style.animationDuration = assignAnimationSpeed
-        cupThree.style.animationDuration = assignAnimationSpeed
+        cupOne.style.animationDuration = assignAnimationSpeed +'s'
+        cupTwo.style.animationDuration = assignAnimationSpeed +'s'
+        cupThree.style.animationDuration = assignAnimationSpeed +'s'
     }
     notification.textContent = ''
-    console.log(cupOne)
-    console.log(cupTwo)
-    console.log(cupThree)
-    console.log(AnimRandomNumberVar)
-    setTimeout(() => {clickBlocker.style.display = 'none'; notification.textContent = 'Select cup...'}, 7000 - setAnimationSpeed )
+    setTimeout(() => {clickBlocker.style.display = 'none'; notification.textContent = 'Select cup...', clearInterval(int)}, (parseFloat(assignAnimationSpeed)*1000)+2000 )
     setTimeout(() => {startGameBtn.style.display = 'none'}, 300)
     CupsRandomNumberVar = randomNumberForAnimAndCups()
     setTimeout(moveCupsDownFc, 1000)
     setTimeout(runAnimation, 1500)
     assignBallToCup()
+    let time = 0
+    let int = setInterval(() => {
+        console.log(time += 1)
+    }, 100);
 }
 
 const endGameFc = () => {
@@ -238,11 +226,6 @@ const endGameFc = () => {
         cupTwo.classList.remove('animation--two', 'animation--five', 'animation--eight')
         cupThree.classList.remove('animation--three', 'animation--six', 'animation--nine')
     }
-    console.log(cupOne)
-    console.log(cupTwo)
-    console.log(cupThree)
-    // startGameBtn.style.display = 'block'
-    // endGameBtn.style.display = 'none'
     ball.classList.remove('expandBall')
     ball.classList.add('shrinkBall')
     difficuiltyLvlHandler.disabled = true
@@ -251,7 +234,6 @@ const endGameFc = () => {
     setTimeout(clearAnimations, 500)
     setTimeout(() => {ball.remove()}, 500)
     setTimeout(startGameFc, 1000)
-    console.log(handleWithClickBlocker)
 }
 
 
