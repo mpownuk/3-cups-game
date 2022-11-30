@@ -279,7 +279,7 @@ main #click--blocker {
   height: 18rem;
   background-color: transparent;
   z-index: 1000;
-  background-color: transparent;
+  background-color: blueviolet;
   opacity: 0.3;
 }
 
