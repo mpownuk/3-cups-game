@@ -6,11 +6,11 @@ Feature: 3cups game testing
 
     Given I am on the "https://icm213.github.io/3-cups-game/" page
     When I am chosing <dfLevel>
-    # Then I should see a flash message saying <message>
+    Then I should be able to play game
 
     Examples:
-      | dfLevel  |  |  |
-      | "easy"   |  |  |
-      | "normal" |  |  |
-      | "hard"   |  |  |
-      | "fluke"  |  |  |
+      | dfLevel  |
+      | "easy"   |
+      | "normal" |
+      | "hard"   |
+      | "fluke"  |
