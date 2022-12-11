@@ -9,7 +9,14 @@ When("I am chosing {string}", async (dfLevel) => {
   await $(`#df--lvl__select--btn`).click();
 });
 
-Then(/^I should see a flash message saying (.*)$/, async (message) => {
-  await expect($("#flash")).toBeExisting();
-  await expect($("#flash")).toHaveTextContaining(message);
+Then("I should be able to play game", async () => {
+  await $(`//*[@id="start--game"]`).click();
+  await browser.waitUntil(
+    async () =>
+      (await $(`//*[@id="notification"]`).getText()) === "Select cup...",
+    {
+      timeout: 7000,
+      timeoutMsg: "expected text to be different after 7s",
+    }
+  );
 });
