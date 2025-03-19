@@ -49,7 +49,21 @@ nav .df--lvl__background h1 {
   animation: rotation 1s forwards;
 }
 
+nav .df--lvl__background .high--score_wrapper {
+  display: flex;
+  flex-direction: row;
+}
+
 nav .df--lvl__background #high--score {
+  font-size: 1.5rem;
+  opacity: 0;
+  animation: rotation 1s  forwards;
+  animation-delay: 0.5s;
+  color: #ffffff;
+  text-shadow: 2px 2px 3px black;
+}
+
+nav .df--lvl__background #high--score_username {
   font-size: 1.5rem;
   opacity: 0;
   animation: rotation 1s  forwards;
@@ -128,6 +142,17 @@ main {
   position: relative;
   overflow: hidden;
   box-shadow: inset 0 0 6rem rgba(176, 174, 174, 0.7);
+}
+
+main #change--df--lvl {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  padding: 0.3rem;
+  z-index: 900;
+  border: none;
+  border-radius: 0.5rem 0 0 0;
+  background-color: #ffaa00;
 }
 
 main #change--df--lvl {

@@ -11,6 +11,7 @@ const difficuiltyLvlAdjustButton = document.querySelector('#df--lvl__select--btn
 const h1 = document.querySelector('h1')
 const highScore = document.querySelector('#high--score')
 const newHighScoreAnnouncement = document.querySelector('#high--score__announcement')
+const saveScoreBtn = document.querySelector("#save--score--btn")
 
 const cupOne = document.querySelector('#cupOne')
 const cupTwo = document.querySelector('#cupTwo')
@@ -259,3 +260,73 @@ difficuiltyLvlAdjustButton.addEventListener('click', setAnimationSpeedFc)
 startGameBtn.addEventListener('click', startGameFc)
 endGameBtn.addEventListener('click', endGameFc)
 difficuiltyLvlHandler.addEventListener('click', navHandler)
+
+const SaveScore = () => {
+    let scoreValue = parseInt(document.querySelector("#score").textContent.substring(7))
+    console.log(scoreValue)
+    let gracz = prompt("Put your name in:");
+
+    if (!gracz) {
+        alert("You have to put your name in!");
+        return;
+    }
+
+    let dane = {
+        gracz: gracz,
+        wynik: scoreValue
+    };
+
+    fetch('http://localhost/gra/save_score.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(dane)
+    })
+    .then(response => response.json())
+    .then(data => {
+        alert(data.message);
+    })
+    .catch(error => console.error('Error:', error));
+};
+
+function loadHighScore() {
+    fetch("http://localhost/gra/get_high_score.php")
+        .then(response => response.json())
+        .then(data => {
+            document.querySelector("#high--score").textContent = 
+                `Best Points: ${data.score} -  `;
+            document.querySelector("#high--score_username").textContent = 
+                `${data.name}`;
+        })
+        .catch(error => console.error("Error loading high score:", error)); //linia 300
+}
+
+function deleteScore(playerName) {
+    if(!confirm(`Czy na pewno chcesz usunąć wynik dla gracza ${playerName}?`)){
+        return
+    }
+    fetch("http://localhost/gra/delete_highscore.php", {
+        method: "DELETE",
+        mode: "cors",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ gracz: playerName })
+    })
+    .then(response => response.json())
+    .then(data => console.log(data.message))
+    .catch(error => console.error("Error:", error));
+    location.reload()
+}
+
+const deletePlayer = document.querySelector("#high--score_username")
+deletePlayer.addEventListener("click", ()=>{
+    console.log(deletePlayer.textContent)
+    deleteScore(
+        deletePlayer.textContent
+    );
+})
+
+document.addEventListener("DOMContentLoaded", loadHighScore);
+saveScoreBtn.addEventListener('click', SaveScore);
